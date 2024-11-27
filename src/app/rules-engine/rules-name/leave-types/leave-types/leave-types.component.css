@@ -94,6 +94,7 @@ button:hover {
 .route-title {
   display: flex;
   align-items: center;
+  height: 17.5px;
   padding: 15px 0px;
   border-bottom: 1px solid #e4e4e4;
   min-width: 99%;
@@ -148,12 +149,18 @@ button:hover {
   position: relative;
 }
 
-.country-image {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
+.create-new-btn {
+  border-radius: 5px !important;
+  background-color: black;
+  color: white;
+  margin-left: 10px;
 }
 
-.rule-type {
+.create-new-btn:hover {
+  color: #000000;
+  background-color: #ffffff;
+}
+
+.title-rules-engine {
   cursor: pointer;
 }

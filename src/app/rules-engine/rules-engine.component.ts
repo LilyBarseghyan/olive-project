@@ -1,10 +1,4 @@
-import {
-  Component,
-  AfterViewInit,
-  ViewChild,
-  signal,
-  input,
-} from '@angular/core';
+import { Component, AfterViewInit, ViewChild, signal } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,11 +7,14 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import { type RulesEngine } from './rules-engine.model';
 import { FormsModule } from '@angular/forms';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-rules-engine',
   standalone: true,
   imports: [
+    RouterOutlet,
+    RouterLink,
     MatTableModule,
     MatButtonModule,
     MatIconModule,
@@ -41,6 +38,7 @@ export class RulesEngineComponent implements AfterViewInit {
   dataSource = new MatTableDataSource<RulesEngine>([
     {
       ruleName: 'Leave Types',
+      ruleLink: 'leave-types',
       module: 'Leaves',
       country: 'Palestine',
       countryCode: 'ps',
@@ -48,6 +46,7 @@ export class RulesEngineComponent implements AfterViewInit {
     },
     {
       ruleName: 'Time tracking',
+      ruleLink: 'time-tracking',
       module: 'Attendance',
       country: 'Armenia',
       countryCode: 'am',
@@ -55,6 +54,7 @@ export class RulesEngineComponent implements AfterViewInit {
     },
     {
       ruleName: 'Leave Types',
+      ruleLink: 'leave-types',
       module: 'Leaves',
       country: 'Palestine',
       countryCode: 'ps',
@@ -62,6 +62,7 @@ export class RulesEngineComponent implements AfterViewInit {
     },
     {
       ruleName: 'Country General',
+      ruleLink: 'country-general',
       module: 'Attendance',
       country: 'America',
       countryCode: 'us',
@@ -69,6 +70,7 @@ export class RulesEngineComponent implements AfterViewInit {
     },
     {
       ruleName: 'Time tracking',
+      ruleLink: 'time-tracking',
       module: 'Attendance',
       country: 'Palestine',
       countryCode: 'ps',
@@ -76,6 +78,7 @@ export class RulesEngineComponent implements AfterViewInit {
     },
     {
       ruleName: 'Leave Types',
+      ruleLink: 'leave-types',
       module: 'Leaves',
       country: 'Armenia',
       countryCode: 'am',
@@ -83,6 +86,7 @@ export class RulesEngineComponent implements AfterViewInit {
     },
     {
       ruleName: 'Leave Types',
+      ruleLink: 'leave-types',
       module: 'Leaves',
       country: 'Armenia',
       countryCode: 'am',
@@ -90,6 +94,7 @@ export class RulesEngineComponent implements AfterViewInit {
     },
     {
       ruleName: 'Leave Types',
+      ruleLink: 'leave-types',
       module: 'Attendance',
       country: 'Armenia',
       countryCode: 'am',
@@ -97,6 +102,7 @@ export class RulesEngineComponent implements AfterViewInit {
     },
     {
       ruleName: 'Leave Types',
+      ruleLink: 'leave-types',
       module: 'Leaves',
       country: 'America',
       countryCode: 'us',

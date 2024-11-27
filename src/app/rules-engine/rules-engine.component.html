@@ -26,7 +26,15 @@
 <table mat-table [dataSource]="dataSource">
   <ng-container matColumnDef="ruleName">
     <th mat-header-cell *matHeaderCellDef>Rule Name</th>
-    <td mat-cell *matCellDef="let element">{{ element.ruleName }}</td>
+    <td
+    class="rule-type"
+      mat-cell
+      *matCellDef="let element"
+      [routerLink]="element.ruleLink === 'leave-types' ? 'leave-types' : ''"
+      routerLinkActive="active"
+    >
+      {{ element.ruleName }}
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="module">
@@ -72,3 +80,5 @@
   [hidePageSize]="true"
   showFirstLastButtons="false"
 ></mat-paginator>
+
+<router-outlet></router-outlet>
