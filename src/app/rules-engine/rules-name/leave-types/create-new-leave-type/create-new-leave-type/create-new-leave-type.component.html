@@ -1,0 +1,216 @@
+<h3 class="route-title">
+  <p
+    class="title-rules-engine"
+    routerLink="/rules-engine"
+    routerLinkActive="active"
+  >
+    Rules Engine
+  </p>
+  <p
+    class="title-leave-types"
+    routerLink="/rules-engine/leave-types"
+    routerLinkActive="active"
+  >
+    / {{ titleLeaveTypes() }}
+  </p>
+  <p class="title-create-new">/ {{ titleCreateNew() }}</p>
+</h3>
+
+<div class="content">
+  <div class="type-name-and-input">
+    <p class="type-name">Name</p>
+    <input class="input-type-name" placeholder="Jordan Legal Leave Type Name" />
+  </div>
+
+  <div class="basic-info">
+    <p class="basic-info-title">Basic Info</p>
+    <div class="columns">
+      <div class="first-column">
+        <div class="each-selected">
+          <p class="selection-name">Type:</p>
+          <mat-radio-group
+            [(ngModel)]="basicInfo.type"
+            aria-label="Select an option"
+          >
+            <mat-radio-button value="Paid">Paid</mat-radio-button>
+            <mat-radio-button value="Not paid">Not paid</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div class="each-selected">
+          <p class="selection-name">Entitled:</p>
+          <mat-radio-group
+            [(ngModel)]="basicInfo.entitled"
+            aria-label="Select an option"
+            (ngModelChange)="refreshValuesOnEntitledChange()"
+          >
+            <mat-radio-button
+              value="Through balance"
+              [disabled]="basicInfo.type === 'Not paid'"
+              >Through balance</mat-radio-button
+            >
+            <mat-radio-button
+              value="Event based"
+              [disabled]="basicInfo.type === 'Not paid'"
+              >Event based</mat-radio-button
+            >
+          </mat-radio-group>
+        </div>
+
+        <div class="each-selected">
+          <p class="selection-name">Docs Required:</p>
+          <mat-radio-group
+            [(ngModel)]="basicInfo.docsRequired"
+            aria-label="Select an option"
+          >
+            <mat-radio-button value="Yes">Yes</mat-radio-button>
+            <mat-radio-button value="No">No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div class="each-selected">
+          <p class="selection-name">Grace Period:</p>
+          <mat-radio-group
+            [(ngModel)]="basicInfo.gracePeriod"
+            aria-label="Select an option"
+          >
+            <mat-radio-button value="Yes">Yes</mat-radio-button>
+            <mat-radio-button value="No">No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div class="each-selected">
+          <p class="selection-name">Dispute:</p>
+          <mat-radio-group
+            [(ngModel)]="basicInfo.dispute"
+            aria-label="Select an option"
+          >
+            <mat-radio-button value="Yes">Yes</mat-radio-button>
+            <mat-radio-button value="No">No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div class="each-selected">
+          <p class="selection-name">Validity:</p>
+          <mat-radio-group
+            [(ngModel)]="basicInfo.validity"
+            aria-label="Select an option"
+          >
+            <mat-radio-button value="Yes">Yes</mat-radio-button>
+            <mat-radio-button value="No">No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+
+      <div class="second-column">
+        <div class="each-selected">
+          <p class="selection-name">Unit Measurements:</p>
+          <mat-form-field>
+            <mat-label>Select</mat-label>
+            <mat-select [(ngModel)]="basicInfo.unitOption" name="unitOption">
+              @for (option of options.unit; track option) {
+              <mat-option [value]="option">{{ option }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="each-selected">
+          <p class="selection-name">Gender:</p>
+          <mat-form-field>
+            <mat-label>Select</mat-label>
+            <mat-select [(ngModel)]="basicInfo.gender" name="gender">
+              @for (option of options.gender; track option) {
+              <mat-option [value]="option">{{ option }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="each-selected">
+          <p class="selection-name">Employment Type:</p>
+          <mat-form-field>
+            <mat-label>Select</mat-label>
+            <mat-select
+              [(ngModel)]="basicInfo.employmentType"
+              name="employmentType"
+            >
+              @for (option of options.employmentType; track option) {
+              <mat-option [value]="option">{{ option }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    @if (basicInfo.entitled === 'Through balance') {
+    <div class="balance-info">
+      <p class="balance-title">Balance</p>
+
+      <div class="checkbox-group">
+        @for (option of basicInfo.balance; track option) {
+        <mat-checkbox [checked]="option.selected" [(ngModel)]="option.selected">
+          {{ option.name }}
+        </mat-checkbox>
+        }
+      </div>
+    </div>
+
+    <div class="consumption-info">
+      <p class="consumption-title">Consumption</p>
+      <mat-radio-group
+        [(ngModel)]="basicInfo.consumption"
+        aria-label="Select an option"
+        class="consumption-radio-group"
+      >
+        <mat-radio-button value="Accural">Accural</mat-radio-button>
+        <mat-radio-button value="Accumulative">Accumulative</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    } @if (basicInfo.entitled === 'Event based') {
+    <div class="balance-info">
+      <p class="balance-title">Balance</p>
+
+      <div class="checkbox-group">
+        @for (option of basicInfo.balance; track option) { @if (option.name !==
+        'Conditional') {
+        <mat-checkbox [checked]="option.selected" [(ngModel)]="option.selected">
+          {{ option.name }}
+        </mat-checkbox>
+        } }
+      </div>
+    </div>
+    }
+  </div>
+
+  <button mat-button (click)="logSelectedType()">Log Selected Value</button>
+
+  <div class="buttons">
+    <button
+      class="cancel-btn"
+      routerLink="/rules-engine/leave-types"
+      routerLinkActive="active"
+    >
+      Cancel
+    </button>
+
+    <button
+      class="create-btn"
+      routerLink="/rules-engine/leave-types/create-new-leave-type"
+      routerLinkActive="active"
+    >
+      Create
+    </button>
+
+    <button
+      class="save-as-draft-btn"
+      routerLink="/rules-engine/leave-types/create-new-leave-type"
+      routerLinkActive="active"
+    >
+      Save as Draft
+    </button>
+  </div>
+
+  <router-outlet></router-outlet>
+</div>

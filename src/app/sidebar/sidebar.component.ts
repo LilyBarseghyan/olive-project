@@ -10,14 +10,16 @@ import { SidebarService } from './sidebar.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
 })
-export class SidebarComponent implements OnInit {
-  isSidebarClosed: boolean = false;
+export class SidebarComponent {
+  isSidebarClosed = false;
 
-  constructor(private sidebarService: SidebarService) {}
-
-  ngOnInit() {
+  constructor(private sidebarService: SidebarService) {
     this.sidebarService.isSidebarClosed$.subscribe((state) => {
       this.isSidebarClosed = state;
     });
+  }
+
+  toggleSidebar() {
+    this.sidebarService.toggleSidebar();
   }
 }
